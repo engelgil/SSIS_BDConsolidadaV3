@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="AS400_MOTTA.EGIL"
+  DTS:DTSID="{8F4AA05F-6FA6-45B6-A775-5FB1B7FA37AB}"
+  DTS:CreationName="ADO.NET:System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="uid=EGIL;Dsn=AS400_MOTTA;">
+      <DTS:Password
+        DTS:Name="pwd"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA+d9XqKkCt0WpNLIoj8w4TwAAAAACAAAAAAADZgAAwAAAABAAAADyLgs4je6VR1H6dG4dIft1AAAAAASAAACgAAAAEAAAABB//FqWV4DvMI/oo1dJhj5wAAAAXili9jZLv+6aNIadb2b6CFG3NLp0FXzUAUrrW1uK3wvqO353olaVqk7JlDDEmagVJgXHulvI3KYBt/F5/iO/HtVlpV+UOoF7PFZAKSOPweuzTFcHfGcYbxqY4ZJppvdMZA5KMwxBxfyi20aAaJqQ8RQAAADKpJLkFqdxsSU/teDAb8Xa/h+snw==</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

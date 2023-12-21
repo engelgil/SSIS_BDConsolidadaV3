@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="PDZLCON01.BDConsolidada"
+  DTS:DTSID="{4ACFCB42-9FB3-4486-B5A4-E3EA58583064}"
+  DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=PDZLCON01;Initial Catalog=BDConsolidada;Integrated Security=True;Application Name=SSIS-SSIS_BDConsolidadaV3-{4ACFCB42-9FB3-4486-B5A4-E3EA58583064}PDZLCON01.BDConsolidada;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

@@ -1,0 +1,1519 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/29/2023 11:46:51 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PF3THB0W-MIPAG"
+  DTS:CreatorName="MOTTA\e.gil"
+  DTS:DTSID="{7B072107-6527-4F88-BB2E-26F6F52739DD}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5270.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{EA141241-EFDE-4FDB-B07D-8F6EAB33E458}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{5D2AAC5C-F17A-4666-B217-562CB688EC8D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task\PARAMETRO 6"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="PARAMETRO 6"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+	'D',
+	a.oiline,
+	CASE
+		WHEN PWP.P$PWWIM IS NULL THEN a.ITEM
+		ELSE PWP.P$PWWIM
+	END AS ITEM,
+	a.replt,
+	(AA.IAAQTY - ifnull(cred.M$QRVC,
+	0)) rersqy,
+	a.coid,
+	SUBSTRING(bb.rhrsdt, 1, 4) || '-' || SUBSTRING(bb.rhrsdt, 5, 2) || '-' || SUBSTRING(bb.rhrsdt, 7, 2) fecha,
+	bb.cusid,
+	bb.trnsmd,
+	bb.relsts,
+	CASE
+		WHEN ohref LIKE 'DEL PO:%' THEN O.ohref
+		ELSE bb.rhcpo
+	END rhcpo,
+	bb.plant,
+	bb.cusid AS Cliente,
+	bb.RHCPO COMENTARIOS,
+	x.CMNAME,
+	s.OESTNM AS Consigned,
+	(
+	SELECT
+		LISTAGG(TRIM(UCASE(onnote)),
+		', ') WITHIN GROUP(
+		ORDER BY onseq ASC)
+	FROM
+		MOPDTA.OETOPL97  H
+	INNER JOIN MOPDTA.OETONP D ON
+		D.coid = H.coid
+		AND H.LANG = D.LANG
+		AND H.ONNID = D.ONNID
+	WHERE
+		h.coid = bb.coid
+		AND h.pacode = 'PKSL'
+		AND ifnull(onnote,
+		'') &lt;&gt; ''
+		AND onseq &lt;= 65) t019,
+	(
+	SELECT
+		SUBSTRING(hp.ohrfdt, 1, 4) || '-' || SUBSTRING(hp.ohrfdt, 7, 2) || '-' || SUBSTRING(hp.ohrfdt, 5, 2) FechaDesp
+	FROM
+		MOPDTA.oetohp hp
+	WHERE
+		hp.coid = Bb.coid),
+	bp.cbnam AS ConsigNombre,
+	(LTrim(RTrim(bp.cbadr1))) || ' ' || (LTrim(RTrim(bp.cbadr2))) || ' ' || (LTrim(RTrim(bp.cbadr3))) AS ConsigDirec,
+	(LTrim(RTrim(bp.cbcity))) AS ConsigCiudad,
+	(LTrim(RTrim(bp.cntry))) AS ConsigCountry,
+	(LTrim(RTrim(aa.whse))) AS Whse,
+	LTrim(RTrim(bb.trncar)) AS TrnCar,
+	(LTrim(RTrim(cred.iyid))) AS GrupCom,
+	a.ITEM AS ItemOrig,
+	s.OESTA1,
+	s.OESTA2
+FROM
+	MOPDTA.p$wrep a
+JOIN MOPDTA.P$WRAP aa ON
+	a.coid = aa.coid
+	AND a.OILINE = aa.oiline
+	AND a.item = aa.item
+	AND a.RLSNBR = aa.RLSNBR
+JOIN MOPDTA.p$wrhp  bb ON
+	a.coid = bb.coid
+INNER JOIN MOPDTA.OETSAP s ON
+	bb.cusid = s.cusid
+	AND bb.coid = s.coid
+INNER JOIN MOPDTA.OETOIP cred ON
+	cred.coid = a.coid
+	AND cred.OILINE = a.oiline
+JOIN MOPDTA.XAMCMP x ON
+	x.cusid = Bb.cusid
+JOIN MOPDTA.XAMCBP BP ON
+	bb.cusid = bp.cusid
+	AND bb.rhblid = bp.billid
+LEFT OUTER JOIN MOPDTA.P$MPWP PWP ON
+	PWP.P$PWITM = A.ITEM
+	AND PWP.P$PWPLT = bb.PLANT
+LEFT JOIN MOPDTA.OETOHP O ON
+	O.COID = BB.COID
+	AND O.PLANT = A.replt
+WHERE
+	1 = 1
+	AND Bb.plant IN ('FF', 'ME', 'EL', 'CO')
+	AND (AA.IAAQTY - ifnull(cred.M$QRVC,
+	0)) &gt; 0
+	AND bb.trncar NOT IN ('ETL')
+	AND O.COID = 1414262</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\PARAMETRO 6.Connections[IDbConnection]"
+                  connectionManagerID="{8F4AA05F-6FA6-45B6-A775-5FB1B7FA37AB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AS400_MOTTA.EGIL]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[00001]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[00001]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[00001]"
+                      name="00001"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[OILINE]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[OILINE]"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[OILINE]"
+                      name="OILINE"
+                      precision="5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[ITEM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[ITEM]"
+                      length="16"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[ITEM]"
+                      name="ITEM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[REPLT]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[REPLT]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[REPLT]"
+                      name="REPLT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[RERSQY]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[RERSQY]"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[RERSQY]"
+                      name="RERSQY"
+                      precision="15"
+                      scale="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[COID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[COID]"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[COID]"
+                      name="COID"
+                      precision="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[FECHA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[FECHA]"
+                      length="32"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[FECHA]"
+                      name="FECHA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CUSID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CUSID]"
+                      length="10"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CUSID]"
+                      name="CUSID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[TRNSMD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[TRNSMD]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[TRNSMD]"
+                      name="TRNSMD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[RELSTS]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[RELSTS]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[RELSTS]"
+                      name="RELSTS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[RHCPO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[RHCPO]"
+                      length="25"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[RHCPO]"
+                      name="RHCPO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[PLANT]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[PLANT]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[PLANT]"
+                      name="PLANT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CLIENTE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CLIENTE]"
+                      length="10"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CLIENTE]"
+                      name="CLIENTE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[COMENTARIOS]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[COMENTARIOS]"
+                      length="25"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[COMENTARIOS]"
+                      name="COMENTARIOS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CMNAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CMNAME]"
+                      length="40"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CMNAME]"
+                      name="CMNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CONSIGNED]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CONSIGNED]"
+                      length="30"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CONSIGNED]"
+                      name="CONSIGNED"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[T019]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[T019]"
+                      length="4000"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[T019]"
+                      name="T019"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[FECHADESP]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[FECHADESP]"
+                      length="32"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[FECHADESP]"
+                      name="FECHADESP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CONSIGNOMBRE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CONSIGNOMBRE]"
+                      length="40"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CONSIGNOMBRE]"
+                      name="CONSIGNOMBRE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CONSIGDIREC]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CONSIGDIREC]"
+                      length="107"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CONSIGDIREC]"
+                      name="CONSIGDIREC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CONSIGCIUDAD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CONSIGCIUDAD]"
+                      length="20"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CONSIGCIUDAD]"
+                      name="CONSIGCIUDAD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CONSIGCOUNTRY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CONSIGCOUNTRY]"
+                      length="3"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[CONSIGCOUNTRY]"
+                      name="CONSIGCOUNTRY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[WHSE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[WHSE]"
+                      length="3"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[WHSE]"
+                      name="WHSE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[TRNCAR]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[TRNCAR]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[TRNCAR]"
+                      name="TRNCAR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[GRUPCOM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[GRUPCOM]"
+                      length="6"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[GRUPCOM]"
+                      name="GRUPCOM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[ITEMORIG]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[ITEMORIG]"
+                      length="16"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[ITEMORIG]"
+                      name="ITEMORIG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[OESTA1]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[OESTA1]"
+                      length="35"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[OESTA1]"
+                      name="OESTA1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[OESTA2]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[OESTA2]"
+                      length="35"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].Columns[OESTA2]"
+                      name="OESTA2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[00001]"
+                      dataType="wstr"
+                      length="1"
+                      name="00001" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[OILINE]"
+                      dataType="numeric"
+                      name="OILINE"
+                      precision="5" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[ITEM]"
+                      dataType="wstr"
+                      length="16"
+                      name="ITEM" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[REPLT]"
+                      dataType="wstr"
+                      length="2"
+                      name="REPLT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[RERSQY]"
+                      dataType="numeric"
+                      name="RERSQY"
+                      precision="15"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[COID]"
+                      dataType="numeric"
+                      name="COID"
+                      precision="7" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[FECHA]"
+                      dataType="wstr"
+                      length="32"
+                      name="FECHA" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CUSID]"
+                      dataType="wstr"
+                      length="10"
+                      name="CUSID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[TRNSMD]"
+                      dataType="wstr"
+                      length="4"
+                      name="TRNSMD" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[RELSTS]"
+                      dataType="wstr"
+                      length="2"
+                      name="RELSTS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[RHCPO]"
+                      dataType="wstr"
+                      length="25"
+                      name="RHCPO" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[PLANT]"
+                      dataType="wstr"
+                      length="2"
+                      name="PLANT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CLIENTE]"
+                      dataType="wstr"
+                      length="10"
+                      name="CLIENTE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[COMENTARIOS]"
+                      dataType="wstr"
+                      length="25"
+                      name="COMENTARIOS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CMNAME]"
+                      dataType="wstr"
+                      length="40"
+                      name="CMNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CONSIGNED]"
+                      dataType="wstr"
+                      length="30"
+                      name="CONSIGNED" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[T019]"
+                      dataType="wstr"
+                      length="4000"
+                      name="T019" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[FECHADESP]"
+                      dataType="wstr"
+                      length="32"
+                      name="FECHADESP" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CONSIGNOMBRE]"
+                      dataType="wstr"
+                      length="40"
+                      name="CONSIGNOMBRE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CONSIGDIREC]"
+                      dataType="wstr"
+                      length="107"
+                      name="CONSIGDIREC" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CONSIGCIUDAD]"
+                      dataType="wstr"
+                      length="20"
+                      name="CONSIGCIUDAD" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[CONSIGCOUNTRY]"
+                      dataType="wstr"
+                      length="3"
+                      name="CONSIGCOUNTRY" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[WHSE]"
+                      dataType="wstr"
+                      length="3"
+                      name="WHSE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[TRNCAR]"
+                      dataType="wstr"
+                      length="4"
+                      name="TRNCAR" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[GRUPCOM]"
+                      dataType="wstr"
+                      length="6"
+                      name="GRUPCOM" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[ITEMORIG]"
+                      dataType="wstr"
+                      length="16"
+                      name="ITEMORIG" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[OESTA1]"
+                      dataType="wstr"
+                      length="35"
+                      name="OESTA1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Output].ExternalColumns[OESTA2]"
+                      dataType="wstr"
+                      length="35"
+                      name="OESTA2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[00001]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[00001]"
+                      name="00001" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[OILINE]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[OILINE]"
+                      name="OILINE"
+                      precision="5" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[ITEM]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[ITEM]"
+                      name="ITEM" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[REPLT]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[REPLT]"
+                      name="REPLT" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[RERSQY]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[RERSQY]"
+                      name="RERSQY"
+                      precision="15"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[COID]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[COID]"
+                      name="COID"
+                      precision="7" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[FECHA]"
+                      dataType="wstr"
+                      length="32"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[FECHA]"
+                      name="FECHA" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CUSID]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CUSID]"
+                      name="CUSID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[TRNSMD]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[TRNSMD]"
+                      name="TRNSMD" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[RELSTS]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[RELSTS]"
+                      name="RELSTS" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[RHCPO]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[RHCPO]"
+                      name="RHCPO" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[PLANT]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[PLANT]"
+                      name="PLANT" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CLIENTE]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CLIENTE]"
+                      name="CLIENTE" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[COMENTARIOS]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[COMENTARIOS]"
+                      name="COMENTARIOS" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CMNAME]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CMNAME]"
+                      name="CMNAME" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CONSIGNED]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CONSIGNED]"
+                      name="CONSIGNED" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[T019]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[T019]"
+                      name="T019" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[FECHADESP]"
+                      dataType="wstr"
+                      length="32"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[FECHADESP]"
+                      name="FECHADESP" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CONSIGNOMBRE]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CONSIGNOMBRE]"
+                      name="CONSIGNOMBRE" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CONSIGDIREC]"
+                      dataType="wstr"
+                      length="107"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CONSIGDIREC]"
+                      name="CONSIGDIREC" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CONSIGCIUDAD]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CONSIGCIUDAD]"
+                      name="CONSIGCIUDAD" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CONSIGCOUNTRY]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[CONSIGCOUNTRY]"
+                      name="CONSIGCOUNTRY" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[WHSE]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[WHSE]"
+                      name="WHSE" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[TRNCAR]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[TRNCAR]"
+                      name="TRNCAR" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[GRUPCOM]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[GRUPCOM]"
+                      name="GRUPCOM" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[ITEMORIG]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[ITEMORIG]"
+                      name="ITEMORIG" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[OESTA1]"
+                      dataType="wstr"
+                      length="35"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[OESTA1]"
+                      name="OESTA1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[OESTA2]"
+                      dataType="wstr"
+                      length="35"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[OESTA2]"
+                      name="OESTA2" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="PARAMETRO 6 IDXSETTING"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 'D',       a.oiline,       CASE WHEN PWP.P$PWWIM IS NULL THEN a.ITEM              ELSE PWP.P$PWWIM       END AS ITEM,       a.replt,       (AA.IAAQTY - ifnull(cred.M$QRVC, 0)) rersqy,         a.coid,       Substring(bb.rhrsdt, 1, 4) || '-' || Substring(bb.rhrsdt, 5, 2) || '-' || Substring(bb.rhrsdt, 7, 2) fecha,         bb.cusid,       bb.trnsmd,       bb.relsts,       CASE WHEN ohref LIKE 'DEL PO:%' THEN O.ohref              ELSE bb.rhcpo       END rhcpo,       bb.plant,       bb.cusid AS Cliente,       bb.RHCPO COMENTARIOS,       x.CMNAME,       s.OESTNM AS Consigned,       (SELECT LISTAGG(TRIM(UCASE(onnote)), ', ') WITHIN GROUP(ORDER BY onseq asc)            FROM OETOPL97  H         INNER          JOIN OETONP D            ON D.coid = H.coid             AND H.LANG = D.LANG           AND H.ONNID = D.ONNID         WHERE h.coid = bb.coid             and h.pacode = 'PKSL'           AND ifnull(onnote, '') &lt;&gt; ''             AND onseq &lt;= 65) t019,       (Select Substring(hp.ohrfdt, 1, 4) || '-' || Substring(hp.ohrfdt, 7, 2) || '-' || Substring(hp.ohrfdt, 5, 2) FechaDesp            FROM oetohp hp         WHERE hp.coid = Bb.coid),       bp.cbnam As ConsigNombre,         (LTrim(RTrim(bp.cbadr1))) || ' ' || (LTrim(RTrim(bp.cbadr2))) || ' ' || (LTrim(RTrim(bp.cbadr3))) As ConsigDirec,         (LTrim(RTrim(bp.cbcity))) As ConsigCiudad,       (LTrim(RTrim(bp.cntry))) As ConsigCountry,         (LTrim(RTrim(aa.whse))) As Whse,       LTrim(RTrim(bb.trncar)) As TrnCar,       (LTrim(RTrim(cred.iyid))) As GrupCom,         a.ITEM AS ItemOrig,       s.OESTA1,       s.OESTA2  FROM p$wrep a  JOIN P$WRAP aa    on a.coid = aa.coid   AND a.OILINE = aa.oiline     and a.item = aa.item   and a.RLSNBR = aa.RLSNBR  JOIN p$wrhp  bb    on a.coid = bb.coid INNEr  JOIN OETSAP s      ON bb.cusid = s.cusid   AND bb.coid = s.coid INNER  JOIN OETOIP cred    ON cred.coid = a.coid   AND cred.OILINE = a.oiline    JOIN XAMCMP x    ON x.cusid = Bb.cusid  JOIN XAMCBP BP    ON bb.cusid = bp.cusid   and bb.rhblid = bp.billid      LEFT outer  JOIN P$MPWP PWP    ON PWP.P$PWITM = A.ITEM   AND PWP.P$PWPLT = bb.PLANT  LEFT  JOIN OETOHP O    ON O.COID = BB.COID   AND O.PLANT = A.replt Where 1 = 1   And Bb.plant In ('FF', 'ME', 'EL', 'CO')   And (AA.IAAQTY - ifnull(cred.M$QRVC, 0)) &gt; 0     AND bb.trncar NOT IN ('ETL')</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Connections[IDbConnection]"
+                  connectionManagerID="{8F4AA05F-6FA6-45B6-A775-5FB1B7FA37AB}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[AS400_MOTTA.EGIL]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[00001]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[00001]"
+                      length="1"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[00001]"
+                      name="00001"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[OILINE]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[OILINE]"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[OILINE]"
+                      name="OILINE"
+                      precision="5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[ITEM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[ITEM]"
+                      length="16"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[ITEM]"
+                      name="ITEM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[REPLT]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[REPLT]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[REPLT]"
+                      name="REPLT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[RERSQY]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[RERSQY]"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[RERSQY]"
+                      name="RERSQY"
+                      precision="15"
+                      scale="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[COID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[COID]"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[COID]"
+                      name="COID"
+                      precision="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[FECHA]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[FECHA]"
+                      length="32"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[FECHA]"
+                      name="FECHA"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CUSID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CUSID]"
+                      length="10"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CUSID]"
+                      name="CUSID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[TRNSMD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[TRNSMD]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[TRNSMD]"
+                      name="TRNSMD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[RELSTS]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[RELSTS]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[RELSTS]"
+                      name="RELSTS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[RHCPO]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[RHCPO]"
+                      length="25"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[RHCPO]"
+                      name="RHCPO"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[PLANT]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[PLANT]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[PLANT]"
+                      name="PLANT"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CLIENTE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CLIENTE]"
+                      length="10"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CLIENTE]"
+                      name="CLIENTE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[COMENTARIOS]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[COMENTARIOS]"
+                      length="25"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[COMENTARIOS]"
+                      name="COMENTARIOS"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CMNAME]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CMNAME]"
+                      length="40"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CMNAME]"
+                      name="CMNAME"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CONSIGNED]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CONSIGNED]"
+                      length="30"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CONSIGNED]"
+                      name="CONSIGNED"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[T019]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[T019]"
+                      length="4000"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[T019]"
+                      name="T019"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[FECHADESP]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[FECHADESP]"
+                      length="32"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[FECHADESP]"
+                      name="FECHADESP"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CONSIGNOMBRE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CONSIGNOMBRE]"
+                      length="40"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CONSIGNOMBRE]"
+                      name="CONSIGNOMBRE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CONSIGDIREC]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CONSIGDIREC]"
+                      length="107"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CONSIGDIREC]"
+                      name="CONSIGDIREC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CONSIGCIUDAD]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CONSIGCIUDAD]"
+                      length="20"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CONSIGCIUDAD]"
+                      name="CONSIGCIUDAD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CONSIGCOUNTRY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CONSIGCOUNTRY]"
+                      length="3"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[CONSIGCOUNTRY]"
+                      name="CONSIGCOUNTRY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[WHSE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[WHSE]"
+                      length="3"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[WHSE]"
+                      name="WHSE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[TRNCAR]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[TRNCAR]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[TRNCAR]"
+                      name="TRNCAR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[GRUPCOM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[GRUPCOM]"
+                      length="6"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[GRUPCOM]"
+                      name="GRUPCOM"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[ITEMORIG]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[ITEMORIG]"
+                      length="16"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[ITEMORIG]"
+                      name="ITEMORIG"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[OESTA1]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[OESTA1]"
+                      length="35"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[OESTA1]"
+                      name="OESTA1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[OESTA2]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[OESTA2]"
+                      length="35"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].Columns[OESTA2]"
+                      name="OESTA2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[00001]"
+                      dataType="wstr"
+                      length="1"
+                      name="00001" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[OILINE]"
+                      dataType="numeric"
+                      name="OILINE"
+                      precision="5" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[ITEM]"
+                      dataType="wstr"
+                      length="16"
+                      name="ITEM" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[REPLT]"
+                      dataType="wstr"
+                      length="2"
+                      name="REPLT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[RERSQY]"
+                      dataType="numeric"
+                      name="RERSQY"
+                      precision="15"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[COID]"
+                      dataType="numeric"
+                      name="COID"
+                      precision="7" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[FECHA]"
+                      dataType="wstr"
+                      length="32"
+                      name="FECHA" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CUSID]"
+                      dataType="wstr"
+                      length="10"
+                      name="CUSID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[TRNSMD]"
+                      dataType="wstr"
+                      length="4"
+                      name="TRNSMD" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[RELSTS]"
+                      dataType="wstr"
+                      length="2"
+                      name="RELSTS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[RHCPO]"
+                      dataType="wstr"
+                      length="25"
+                      name="RHCPO" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[PLANT]"
+                      dataType="wstr"
+                      length="2"
+                      name="PLANT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CLIENTE]"
+                      dataType="wstr"
+                      length="10"
+                      name="CLIENTE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[COMENTARIOS]"
+                      dataType="wstr"
+                      length="25"
+                      name="COMENTARIOS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CMNAME]"
+                      dataType="wstr"
+                      length="40"
+                      name="CMNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CONSIGNED]"
+                      dataType="wstr"
+                      length="30"
+                      name="CONSIGNED" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[T019]"
+                      dataType="wstr"
+                      length="4000"
+                      name="T019" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[FECHADESP]"
+                      dataType="wstr"
+                      length="32"
+                      name="FECHADESP" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CONSIGNOMBRE]"
+                      dataType="wstr"
+                      length="40"
+                      name="CONSIGNOMBRE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CONSIGDIREC]"
+                      dataType="wstr"
+                      length="107"
+                      name="CONSIGDIREC" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CONSIGCIUDAD]"
+                      dataType="wstr"
+                      length="20"
+                      name="CONSIGCIUDAD" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[CONSIGCOUNTRY]"
+                      dataType="wstr"
+                      length="3"
+                      name="CONSIGCOUNTRY" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[WHSE]"
+                      dataType="wstr"
+                      length="3"
+                      name="WHSE" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[TRNCAR]"
+                      dataType="wstr"
+                      length="4"
+                      name="TRNCAR" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[GRUPCOM]"
+                      dataType="wstr"
+                      length="6"
+                      name="GRUPCOM" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[ITEMORIG]"
+                      dataType="wstr"
+                      length="16"
+                      name="ITEMORIG" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[OESTA1]"
+                      dataType="wstr"
+                      length="35"
+                      name="OESTA1" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Output].ExternalColumns[OESTA2]"
+                      dataType="wstr"
+                      length="35"
+                      name="OESTA2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[00001]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[00001]"
+                      name="00001" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[OILINE]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[OILINE]"
+                      name="OILINE"
+                      precision="5" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[ITEM]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[ITEM]"
+                      name="ITEM" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[REPLT]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[REPLT]"
+                      name="REPLT" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[RERSQY]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[RERSQY]"
+                      name="RERSQY"
+                      precision="15"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[COID]"
+                      dataType="numeric"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[COID]"
+                      name="COID"
+                      precision="7" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[FECHA]"
+                      dataType="wstr"
+                      length="32"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[FECHA]"
+                      name="FECHA" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CUSID]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CUSID]"
+                      name="CUSID" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[TRNSMD]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[TRNSMD]"
+                      name="TRNSMD" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[RELSTS]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[RELSTS]"
+                      name="RELSTS" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[RHCPO]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[RHCPO]"
+                      name="RHCPO" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[PLANT]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[PLANT]"
+                      name="PLANT" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CLIENTE]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CLIENTE]"
+                      name="CLIENTE" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[COMENTARIOS]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[COMENTARIOS]"
+                      name="COMENTARIOS" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CMNAME]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CMNAME]"
+                      name="CMNAME" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CONSIGNED]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CONSIGNED]"
+                      name="CONSIGNED" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[T019]"
+                      dataType="wstr"
+                      length="4000"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[T019]"
+                      name="T019" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[FECHADESP]"
+                      dataType="wstr"
+                      length="32"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[FECHADESP]"
+                      name="FECHADESP" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CONSIGNOMBRE]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CONSIGNOMBRE]"
+                      name="CONSIGNOMBRE" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CONSIGDIREC]"
+                      dataType="wstr"
+                      length="107"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CONSIGDIREC]"
+                      name="CONSIGDIREC" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CONSIGCIUDAD]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CONSIGCIUDAD]"
+                      name="CONSIGCIUDAD" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CONSIGCOUNTRY]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[CONSIGCOUNTRY]"
+                      name="CONSIGCOUNTRY" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[WHSE]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[WHSE]"
+                      name="WHSE" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[TRNCAR]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[TRNCAR]"
+                      name="TRNCAR" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[GRUPCOM]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[GRUPCOM]"
+                      name="GRUPCOM" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[ITEMORIG]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[ITEMORIG]"
+                      name="ITEMORIG" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[OESTA1]"
+                      dataType="wstr"
+                      length="35"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[OESTA1]"
+                      name="OESTA1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[OESTA2]"
+                      dataType="wstr"
+                      length="35"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[OESTA2]"
+                      name="OESTA2" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\PARAMETRO 6 IDXSETTING.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="152,42.6666666666667"
+          Id="Package\Data Flow Task"
+          TopLeft="167.499997504056,72.1499987098575" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="149.333333333334,42.6666666666667"
+          Id="Package\Data Flow Task\PARAMETRO 6"
+          TopLeft="161.249997597188,57.1999989771843" />
+        <NodeLayout
+          Size="212,42.6666666666667"
+          Id="Package\Data Flow Task\PARAMETRO 6 IDXSETTING"
+          TopLeft="508.124992428348,75.399998651743" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\PARAMETRO 6">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\PARAMETRO 6 IDXSETTING">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
